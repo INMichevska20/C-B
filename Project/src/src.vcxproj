@@ -140,6 +140,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\menu.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="headers\button.hpp" />
+    <ClInclude Include="headers\raygui.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
