@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include "raylib.h"
 
-#include "../headers/raygui.hpp"
+#include "../headers/raygui.h"
 #include "../headers/button.hpp"
 #include "../headers/menu.hpp"
 #include "../headers/settings.hpp"
@@ -28,7 +28,6 @@ void menu()
     SetTargetFPS(240);               //FPS locked at 240
 
     
-
     HideCursor();
     while (!WindowShouldClose())    //main loop
     {
@@ -36,7 +35,7 @@ void menu()
         //----------------------------------------------------------------------------------
         cursorPosition = GetMousePosition();        //cursor position
         SetWinowsRes(screenWidth, screenHeight);          //function for changing fullscreen mode
-
+       
         
 
         //----------------------------------------------------------------------------------
@@ -49,7 +48,6 @@ void menu()
             DrawTextureV(mainMenuTexture, mainMenuTexturePosition, WHITE);
             //DrawRectangle(660, 400, 240, 200, RED);           //FOR TESTING PURPOSES!!!
             DrawTextureV(customCursor, cursorPosition, WHITE);
-
 
         EndDrawing();
     } 

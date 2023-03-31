@@ -1,4 +1,4 @@
-﻿/*******************************************************************************************
+/*******************************************************************************************
 *
 *   raygui v3.2 - A simple and easy-to-use immediate-mode gui library
 *
@@ -2189,7 +2189,7 @@ bool GuiValueBox(Rectangle bounds, const char *text, int *value, int minValue, i
     bool pressed = false;
 
     char textValue[RAYGUI_VALUEBOX_MAX_CHARS + 1] = "\0";
-    sprintf_s(textValue, "%i", *value);
+    sprintf(textValue, "%i", *value);
 
     Rectangle textBounds = { 0 };
     if (text != NULL)
@@ -3290,7 +3290,7 @@ void GuiLoadStyle(const char *fileName)
                     {
                         // Style property: p <control_id> <property_id> <property_value> <property_name>
 
-                        sscanf_s(buffer, "p %d %d 0x%x", &controlId, &propertyId, &propertyValue);
+                        sscanf(buffer, "p %d %d 0x%x", &controlId, &propertyId, &propertyValue);
                         GuiSetStyle(controlId, propertyId, (int)propertyValue);
 
                     } break;
@@ -3301,7 +3301,7 @@ void GuiLoadStyle(const char *fileName)
                         int fontSize = 0;
                         char charmapFileName[256] = { 0 };
                         char fontFileName[256] = { 0 };
-                        sscanf_s(buffer, "f %d %s %[^\r\n]s", &fontSize, charmapFileName, fontFileName);
+                        sscanf(buffer, "f %d %s %[^\r\n]s", &fontSize, charmapFileName, fontFileName);
 
                         Font font = { 0 };
 
@@ -3565,7 +3565,7 @@ const char *GuiIconText(int iconId, const char *text)
     if (text != NULL)
     {
         memset(buffer, 0, 1024);
-        sprintf_s(buffer, "#%03i#", iconId);
+        sprintf(buffer, "#%03i#", iconId);
         
         for (int i = 5; i < 1024; i++)
         {
@@ -3577,7 +3577,7 @@ const char *GuiIconText(int iconId, const char *text)
     }
     else 
     {
-        sprintf_s(iconBuffer, "#%03i#", iconId & 0x1ff);
+        sprintf(iconBuffer, "#%03i#", iconId & 0x1ff);
         
         return iconBuffer;
     }
