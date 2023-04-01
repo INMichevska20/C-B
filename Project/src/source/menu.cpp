@@ -4,13 +4,18 @@
 #include "../headers/menu.hpp"
 #include "../headers/settings.hpp"
 
-#define RAYGUI_IMPLEMENTATION
+
+bool isMouseInSoundIconPosition()
+{
+    return(GetMouseX() >= 1560 && GetMouseY() >= 860);
+}
 
 void menu()
 {
     const float screenWidth = 1600;       //fixed window resolution
     const float screenHeight = 900;
 
+    bool hoverSoundButton = false;
     bool encyclopedia = true;
     bool quiz = true;
     bool skeleton = true;
@@ -30,12 +35,16 @@ void menu()
 
     Vector2 logoTexturePosition = { 534, 100 };
 
-    Texture2D customCursor = LoadTexture("assets/customCursor.png");         //load texture in VRAM
-    customCursor.width = 93;
-    customCursor.height = 175;
-
+    Texture2D customCursor = LoadTexture("assets/cursor.png");         //load texture in VRAM
+    //customCursor.width = 28;
+    //customCursor.height = 28;
     Vector2 cursorPosition = { -100.0f, -100.0f };
 
+    Texture2D soundOnIconTexture = LoadTexture("assets/speaker.png");
+    Texture2D soundOffIconTexture = LoadTexture("assets/mute.png");
+    Texture2D emptySoundIconTexture = soundOffIconTexture;
+
+    Vector2 soundIconTexturePosition = { 1560.0f, 860.0f };
 
     SetTargetFPS(240);               //FPS locked at 240
 
@@ -46,11 +55,19 @@ void menu()
         // Update
         //----------------------------------------------------------------------------------
         cursorPosition = GetMousePosition();        //cursor position
-        cursorPosition.x -= 31.5f;
 
         SetWinowsRes(screenWidth, screenHeight);          //function for changing fullscreen mode
 
-
+        if (isMouseInSoundIconPosition())
+        {
+            emptySoundIconTexture = soundOnIconTexture;
+            hoverSoundButton = true;
+        }
+        else
+        {
+            hoverSoundButton = false;
+        }
+        
 
         //----------------------------------------------------------------------------------
 
@@ -61,6 +78,17 @@ void menu()
         ClearBackground(WHITE);
         DrawTextureV(mainMenuTexture, mainMenuTexturePosition, WHITE);
         DrawTextureV(logoTexture, logoTexturePosition, WHITE);
+
+        if (!hoverSoundButton)
+        {
+            //released = true;
+            DrawTextureV(soundOffIconTexture, soundIconTexturePosition, WHITE);
+        }
+        else
+        {
+            //released = false;
+            DrawTextureV(soundOnIconTexture, soundIconTexturePosition, WHITE);
+        }
 
         //DrawRectangle(660, 400, 240, 200, RED);           //FOR TESTING PURPOSES!!!
 
