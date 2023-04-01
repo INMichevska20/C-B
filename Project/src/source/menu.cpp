@@ -42,7 +42,6 @@ void menu()
 
     Texture2D soundOnIconTexture = LoadTexture("assets/speaker.png");
     Texture2D soundOffIconTexture = LoadTexture("assets/mute.png");
-    Texture2D emptySoundIconTexture = soundOffIconTexture;
 
     Vector2 soundIconTexturePosition = { 1560.0f, 860.0f };
 
@@ -58,14 +57,9 @@ void menu()
 
         SetWinowsRes(screenWidth, screenHeight);          //function for changing fullscreen mode
 
-        if (isMouseInSoundIconPosition())
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && isMouseInSoundIconPosition())
         {
-            emptySoundIconTexture = soundOnIconTexture;
-            hoverSoundButton = true;
-        }
-        else
-        {
-            hoverSoundButton = false;
+            hoverSoundButton = !hoverSoundButton;
         }
         
 
@@ -81,12 +75,10 @@ void menu()
 
         if (!hoverSoundButton)
         {
-            //released = true;
             DrawTextureV(soundOffIconTexture, soundIconTexturePosition, WHITE);
         }
         else
         {
-            //released = false;
             DrawTextureV(soundOnIconTexture, soundIconTexturePosition, WHITE);
         }
 
