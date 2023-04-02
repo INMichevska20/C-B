@@ -1,9 +1,10 @@
 ﻿#include <iostream>
-#include "raylib.h"
+#include "../include/raylib.h"
 
 #include "../headers/menu.hpp"
 #include "../headers/settings.hpp"
 
+#define NUM_FRAMES  1
 
 bool isMouseInSoundIconPosition()
 {
@@ -25,6 +26,14 @@ void menu()
     InitWindow(screenWidth, screenHeight, "Project B-C");       //Initializing OpenGL window
 
 
+    Texture2D button = LoadTexture("assets/button.png");
+    float frameHeight = (float)button.height / NUM_FRAMES;
+    Rectangle sourceRec = { 0, 0, (float)button.width, frameHeight };
+    Rectangle btnBounds = { screenWidth / 2.0f - button.width / 2.0f, screenHeight / 2.0f - button.height / NUM_FRAMES / 2.0f, (float)button.width, frameHeight };
+    int btnState = 0;
+    bool btnAction = false;
+    Vector2 mousePoint = { 0.0f, 0.0f };
+
 
     Texture2D mainMenuTexture = LoadTexture("assets/background.png");         //load texture in VRAM
     mainMenuTexture.width = 1600;
@@ -33,7 +42,7 @@ void menu()
 
     Texture2D logoTexture = LoadTexture("assets/Logo.png");
 
-    Vector2 logoTexturePosition = { 534, 100 };
+    Vector2 logoTexturePosition = { 0, 0 };
 
     Texture2D customCursor = LoadTexture("assets/cursor.png");         //load texture in VRAM
     //customCursor.width = 28;
@@ -55,21 +64,38 @@ void menu()
         //----------------------------------------------------------------------------------
         cursorPosition = GetMousePosition();        //cursor position
 
+        mousePoint = GetMousePosition();
+        btnAction = false;
+
         SetWinowsRes(screenWidth, screenHeight);          //function for changing fullscreen mode
 
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && isMouseInSoundIconPosition())
         {
             hoverSoundButton = !hoverSoundButton;
         }
-        
 
-        //----------------------------------------------------------------------------------
+        if (CheckCollisionPointRec(mousePoint, btnBounds))
+        {
+            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) btnState = 2;
+            else btnState = 1;
+
+            if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) btnAction = true;
+        }
+        else btnState = 0;
+
+        if (btnAction)
+        {
+
+
+        }
+
+        sourceRec.y = btnState * frameHeight;
 
         // Draw
-        //----------------------------------------------------------------------------------
         BeginDrawing();
 
         ClearBackground(WHITE);
+
         DrawTextureV(mainMenuTexture, mainMenuTexturePosition, WHITE);
         DrawTextureV(logoTexture, logoTexturePosition, WHITE);
 
@@ -84,12 +110,15 @@ void menu()
 
         //DrawRectangle(660, 400, 240, 200, RED);           //FOR TESTING PURPOSES!!!
 
-        DrawTextureV(customCursor, cursorPosition, WHITE);      //draw cursor texture
+        DrawTextureRec(button, sourceRec, Vector2{ btnBounds.x, btnBounds.y }, WHITE); // Draw button frame
+        DrawText("Start", 715, screenHeight / 2.0f - button.height / NUM_FRAMES / 2.0f + 6, 60, LIGHTGRAY);
 
+        DrawTextureV(customCursor, cursorPosition, WHITE);//draw cursor texture
 
         EndDrawing();
     }
 
+    UnloadTexture(button);
     // De-Initialization
     //--------------------------------------------------------------------------------------
     CloseWindow();
