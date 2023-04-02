@@ -8,7 +8,32 @@
 
 bool isMouseInSoundIconPosition()
 {
-    return(GetMouseX() >= 1560 && GetMouseY() >= 860);
+    return (GetMouseX() >= 1560 && GetMouseY() >= 860);
+}
+
+bool isMouseOnEncyclopediaPosition()
+{
+    return (GetMouseX() >= 685 && GetMouseX() <= 1000 && GetMouseY() >= 320 && GetMouseY() <= 400);
+}
+
+bool isMouseOnQuizPosition()
+{
+    return (GetMouseX() >= 685 && GetMouseX() <= 1000 && GetMouseY() >= 520 && GetMouseY() <= 600);
+}
+
+bool isMouseOnSkeletonPosition()
+{
+    return (GetMouseX() >= 691 && GetMouseX() <= 1005 && GetMouseY() >= 320 && GetMouseY() <= 397);
+}
+
+bool isMouseOnExitPosition()
+{
+    return (GetMouseX() >= 691 && GetMouseX() <= 1005 && GetMouseY() >= 320 && GetMouseY() <= 397);
+}
+
+void change_ButtonTexture(Texture2D buttonTexture1)
+{
+    Texture2D buttonTexture;
 }
 
 void menu()
@@ -17,10 +42,10 @@ void menu()
     const float screenHeight = 900;
 
     bool hoverSoundButton = false;
-    bool encyclopedia = true;
-    bool quiz = true;
-    bool skeleton = true;
-    bool exit = true;
+    bool encyclopedia = false;
+    bool quiz = false;
+    bool skeleton = false;
+    bool exit = false;
 
 
     InitWindow(screenWidth, screenHeight, "Project B-C");       //Initializing OpenGL window
@@ -36,13 +61,18 @@ void menu()
 
 
     Texture2D mainMenuTexture = LoadTexture("assets/background.png");         //load texture in VRAM
-    mainMenuTexture.width = 1600;
-    mainMenuTexture.height = 900;
+    Texture2D mainButtonTexture = LoadTexture("assets/Menu/image.png");
+
     Vector2 mainMenuTexturePosition = { 0, 0 };
 
-    Texture2D logoTexture = LoadTexture("assets/Logo.png");
+    Texture2D activeButtonQuizTexture = LoadTexture("assets/Menu/HoverQuiz.png");
+    
 
-    Vector2 logoTexturePosition = { 0, 0 };
+    //Texture2D activeButtonTexture = LoadTexture("assets/Menu/HoverEncyclopedia.png");
+    //Texture2D activeButtonTexture = LoadTexture("assets/Menu/HoverEncyclopedia.png");
+    Texture2D activeButtonEncyclopediaTexture = LoadTexture("assets/Menu/HoverEncyclopedia.png");
+    Vector2 buttonPosition = { 600, 230 };
+
 
     Texture2D customCursor = LoadTexture("assets/cursor.png");         //load texture in VRAM
     //customCursor.width = 28;
@@ -68,6 +98,17 @@ void menu()
         btnAction = false;
 
         SetWinowsRes(screenWidth, screenHeight);          //function for changing fullscreen mode
+
+
+        if (isMouseOnQuizPosition())
+        {
+            quiz = !quiz;
+        }
+
+        if (isMouseOnEncyclopediaPosition())
+        {
+            encyclopedia = !encyclopedia;
+        }
 
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && isMouseInSoundIconPosition())
         {
@@ -96,8 +137,27 @@ void menu()
 
         ClearBackground(WHITE);
 
-        DrawTextureV(mainMenuTexture, mainMenuTexturePosition, WHITE);
-        DrawTextureV(logoTexture, logoTexturePosition, WHITE);
+        DrawTexture(mainMenuTexture, 0, 0, WHITE);
+
+        if (!quiz)
+        {
+            DrawTexture(mainMenuTexture, 685, 520, WHITE);
+        }
+        else
+        {
+            DrawTexture(activeButtonQuizTexture, 685, 520, WHITE);
+        }
+
+        if (!encyclopedia)
+        {
+            DrawTextureV(mainMenuTexture, mainMenuTexturePosition, WHITE);
+        }
+        else
+        {
+            
+            DrawTextureV(activeButtonEncyclopediaTexture, buttonPosition, WHITE);
+
+        }
 
         if (!hoverSoundButton)
         {
