@@ -11,41 +11,18 @@ bool isMouseInSoundIconPosition()
     return (GetMouseX() >= 1560 && GetMouseY() >= 860);
 }
 
-bool isMouseOnEncyclopediaPosition()
-{
-    return (GetMouseX() >= 685 && GetMouseX() <= 1000 && GetMouseY() >= 320 && GetMouseY() <= 400);
-}
-
-bool isMouseOnQuizPosition()
-{
-    return (GetMouseX() >= 685 && GetMouseX() <= 1000 && GetMouseY() >= 520 && GetMouseY() <= 600);
-}
-
-bool isMouseOnSkeletonPosition()
-{
-    return (GetMouseX() >= 691 && GetMouseX() <= 1005 && GetMouseY() >= 320 && GetMouseY() <= 397);
-}
-
-bool isMouseOnExitPosition()
-{
-    return (GetMouseX() >= 691 && GetMouseX() <= 1005 && GetMouseY() >= 320 && GetMouseY() <= 397);
-}
-
-void change_ButtonTexture(Texture2D buttonTexture1)
-{
-    Texture2D buttonTexture;
-}
-
 void menu()
 {
     const float screenWidth = 1600;       //fixed window resolution
     const float screenHeight = 900;
 
     bool hoverSoundButton = false;
+    bool isInMenu = true;
     bool encyclopedia = false;
     bool quiz = false;
     bool skeleton = false;
     bool exit = false;
+    bool isExitButtonPressed = false;
 
 
     InitWindow(screenWidth, screenHeight, "Project B-C");       //Initializing OpenGL window
@@ -54,35 +31,61 @@ void menu()
     Texture2D button = LoadTexture("assets/button.png");
     float frameHeight = (float)button.height / NUM_FRAMES;
     Rectangle sourceRec = { 0, 0, (float)button.width, frameHeight };
-    Rectangle btnBounds = { screenWidth / 2.0f - button.width / 2.0f, screenHeight / 2.0f - button.height / NUM_FRAMES / 2.0f, (float)button.width, frameHeight };
+
+    Color underButtonRectangleColor = { 92, 87, 79, 200 };
+    Rectangle underButtonRectangle[4] = {
+        {655.0f, 350.0f, 310.0f, 75.0f},
+        {655.0f, 450.0f, 310.0f, 75.0f},
+        {655.0f, 550.0f, 310.0f, 75.0f},
+        {655.0f, 650.0f, 310.0f, 75.0f}
+    };
+
+    Rectangle btnBounds = { 
+        screenWidth / 2.0f - button.width / 2.0f,
+        screenHeight / 2.0f - button.height / NUM_FRAMES / 2.0f,
+        (float)button.width, 
+        frameHeight 
+    };
+
     int btnState = 0;
     bool btnAction = false;
-    Vector2 mousePoint = { 0.0f, 0.0f };
 
 
-    Texture2D mainMenuTexture = LoadTexture("assets/background.png");         //load texture in VRAM
-    Texture2D mainButtonTexture = LoadTexture("assets/Menu/image.png");
+    Texture2D backgroundTexture = LoadTexture("assets/background.png");         //load texture in VRAM
+    Texture2D logoTexture = LoadTexture("assets/Logo.png");
 
-    Vector2 mainMenuTexturePosition = { 0, 0 };
+   
+    Texture2D buttonEncyclopediaTexture = LoadTexture("assets/Menu/Buttons/EncyclopediaButton.png");           //Buttons' Texture
+    Texture2D buttonQuizTexture = LoadTexture("assets/Menu/Buttons/QuizButton.png");
+    Texture2D buttonskeletonTexture = LoadTexture("assets/Menu/Buttons/SkeletonButton.png");
+    Texture2D buttonExitTexture = LoadTexture("assets/Menu/Buttons/ExitButton.png");
 
-    Texture2D activeButtonQuizTexture = LoadTexture("assets/Menu/HoverQuiz.png");
-    
-
-    //Texture2D activeButtonTexture = LoadTexture("assets/Menu/HoverEncyclopedia.png");
-    //Texture2D activeButtonTexture = LoadTexture("assets/Menu/HoverEncyclopedia.png");
-    Texture2D activeButtonEncyclopediaTexture = LoadTexture("assets/Menu/HoverEncyclopedia.png");
-    Vector2 buttonPosition = { 600, 230 };
-
-
-    Texture2D customCursor = LoadTexture("assets/cursor.png");         //load texture in VRAM
-    //customCursor.width = 28;
-    //customCursor.height = 28;
-    Vector2 cursorPosition = { -100.0f, -100.0f };
+    Texture2D buttonТextures[4] = {
+        buttonEncyclopediaTexture,
+        buttonQuizTexture,
+        buttonskeletonTexture,
+        buttonExitTexture,
+    };
 
     Texture2D soundOnIconTexture = LoadTexture("assets/speaker.png");
     Texture2D soundOffIconTexture = LoadTexture("assets/mute.png");
 
+    Vector2 mainMenuTexturePosition = { 0, 0 };
+    Vector2 logoTexturePosition = { 609, 32 };
+    Vector2 buttonPosition[4] = {
+        {648.0f, 343.0f},
+        {648.0f, 443.0f},
+        {648.0f, 543.0f},
+        {648.0f, 643.0f}
+    };
+
+
+
+    Texture2D customCursor = LoadTexture("assets/cursor.png");         //load texture in VRAM
+    Vector2 cursorPosition;
     Vector2 soundIconTexturePosition = { 1560.0f, 860.0f };
+    
+    
 
     SetTargetFPS(240);               //FPS locked at 240
 
@@ -93,21 +96,25 @@ void menu()
         // Update
         //----------------------------------------------------------------------------------
         cursorPosition = GetMousePosition();        //cursor position
+        cursorPosition.x -= 3;
 
-        mousePoint = GetMousePosition();
         btnAction = false;
 
         SetWinowsRes(screenWidth, screenHeight);          //function for changing fullscreen mode
 
+        if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[0]))
+        {
+            encyclopedia = !encyclopedia;
+        }
 
-        if (isMouseOnQuizPosition())
+        if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[1]))
         {
             quiz = !quiz;
         }
 
-        if (isMouseOnEncyclopediaPosition())
+        if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[2]))
         {
-            encyclopedia = !encyclopedia;
+            skeleton = !skeleton;
         }
 
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && isMouseInSoundIconPosition())
@@ -115,7 +122,12 @@ void menu()
             hoverSoundButton = !hoverSoundButton;
         }
 
-        if (CheckCollisionPointRec(mousePoint, btnBounds))
+        if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[3])) //&& IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+        {
+            exit = !exit;
+        }
+
+        if (CheckCollisionPointRec(cursorPosition, btnBounds))
         {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) btnState = 2;
             else btnState = 1;
@@ -127,7 +139,6 @@ void menu()
         if (btnAction)
         {
 
-
         }
 
         sourceRec.y = btnState * frameHeight;
@@ -137,27 +148,29 @@ void menu()
 
         ClearBackground(WHITE);
 
-        DrawTexture(mainMenuTexture, 0, 0, WHITE);
+        if (isInMenu)
+        {
+            DrawTextureV(backgroundTexture, mainMenuTexturePosition, RAYWHITE);
+            DrawTextureV(logoTexture, logoTexturePosition, RAYWHITE);
 
-        if (!quiz)
-        {
-            DrawTexture(mainMenuTexture, 685, 520, WHITE);
+            for (int i = 0; i < 4; i++)
+            {
+                DrawRectangleRounded(underButtonRectangle[i], 0.45, 1, underButtonRectangleColor);
+                if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[i]))
+                {
+                    DrawTexture(buttonТextures[i], buttonPosition[i].x + 7, buttonPosition[i].y + 7, RAYWHITE);
+                }
+                else
+                {
+                    DrawTextureV(buttonТextures[i], buttonPosition[i], RAYWHITE);
+                }
+            }
         }
-        else
+        if (isExitButtonPressed)
         {
-            DrawTexture(activeButtonQuizTexture, 685, 520, WHITE);
+            CloseWindow();
         }
 
-        if (!encyclopedia)
-        {
-            DrawTextureV(mainMenuTexture, mainMenuTexturePosition, WHITE);
-        }
-        else
-        {
-            
-            DrawTextureV(activeButtonEncyclopediaTexture, buttonPosition, WHITE);
-
-        }
 
         if (!hoverSoundButton)
         {
@@ -170,12 +183,13 @@ void menu()
 
         //DrawRectangle(660, 400, 240, 200, RED);           //FOR TESTING PURPOSES!!!
 
-        DrawTextureRec(button, sourceRec, Vector2{ btnBounds.x, btnBounds.y }, WHITE); // Draw button frame
+        /*DrawTextureRec(button, sourceRec, Vector2{btnBounds.x, btnBounds.y}, WHITE); // Draw button frame
         DrawText("Start", 715, screenHeight / 2.0f - button.height / NUM_FRAMES / 2.0f + 6, 60, LIGHTGRAY);
+        */
 
-        DrawTextureV(customCursor, cursorPosition, WHITE);//draw cursor texture
-
+        DrawTextureV(customCursor, cursorPosition, WHITE); //draw cursor texture
         EndDrawing();
+        
     }
 
     UnloadTexture(button);
