@@ -23,3 +23,16 @@
     <img src="https://pnggrid.com/wp-content/uploads/2021/07/Microsoft-Teams-Logo.png" alt="Teams" width=53px />
 </p>
 
+## 📚 PDF Documents
+- [Documentation](Documents/Documentation.pdf)
+- [Presentation](Documents/Presentation.pdf)
+
+## 📥 Download
+<p> To download our game on your computer, paste the code below in CMD in order to clone it.</p>
+<pre>git clone https://github.com/INMichevska20/C-B.git</pre>
+
+## 🧒 Our Team
+* **Iliyana Michevska** - *Scrum trainer* 
+* **Rumen Petkov** - *Back-end developer* 
+* **Preslav Penchev** - *Back-end developer* 
+* **Daniel Mihalev** - *Designer* 	
