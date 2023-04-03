@@ -8,7 +8,7 @@
 
 bool isMouseInSoundIconPosition()
 {
-    return (GetMouseX() >= 1560 && GetMouseY() >= 860);
+    return (GetMouseX() >= 1500 && GetMouseY() >= 800);
 }
 
 void menu()
@@ -40,11 +40,11 @@ void menu()
         {655.0f, 650.0f, 310.0f, 75.0f}
     };
 
-    Rectangle btnBounds = { 
+    Rectangle btnBounds = {
         screenWidth / 2.0f - button.width / 2.0f,
         screenHeight / 2.0f - button.height / NUM_FRAMES / 2.0f,
-        (float)button.width, 
-        frameHeight 
+        (float)button.width,
+        frameHeight
     };
 
     int btnState = 0;
@@ -54,7 +54,7 @@ void menu()
     Texture2D backgroundTexture = LoadTexture("assets/background.png");         //load texture in VRAM
     Texture2D logoTexture = LoadTexture("assets/Logo.png");
 
-   
+
     Texture2D buttonEncyclopediaTexture = LoadTexture("assets/Menu/Buttons/EncyclopediaButton.png");           //Buttons' Texture
     Texture2D buttonQuizTexture = LoadTexture("assets/Menu/Buttons/QuizButton.png");
     Texture2D buttonskeletonTexture = LoadTexture("assets/Menu/Buttons/SkeletonButton.png");
@@ -83,9 +83,9 @@ void menu()
 
     Texture2D customCursor = LoadTexture("assets/cursor.png");         //load texture in VRAM
     Vector2 cursorPosition;
-    Vector2 soundIconTexturePosition = { 1560.0f, 860.0f };
-    
-    
+    Vector2 soundIconTexturePosition = { 1500.0f, 800.0f };
+
+
 
     SetTargetFPS(240);               //FPS locked at 240
 
@@ -122,9 +122,9 @@ void menu()
             hoverSoundButton = !hoverSoundButton;
         }
 
-        if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[3])) //&& IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+        if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[3]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
-            exit = !exit;
+            isExitButtonPressed = !isExitButtonPressed;
         }
 
         if (CheckCollisionPointRec(cursorPosition, btnBounds))
@@ -166,10 +166,7 @@ void menu()
                 }
             }
         }
-        if (isExitButtonPressed)
-        {
-            CloseWindow();
-        }
+
 
 
         if (!hoverSoundButton)
@@ -181,15 +178,13 @@ void menu()
             DrawTextureV(soundOnIconTexture, soundIconTexturePosition, WHITE);
         }
 
-        //DrawRectangle(660, 400, 240, 200, RED);           //FOR TESTING PURPOSES!!!
-
-        /*DrawTextureRec(button, sourceRec, Vector2{btnBounds.x, btnBounds.y}, WHITE); // Draw button frame
-        DrawText("Start", 715, screenHeight / 2.0f - button.height / NUM_FRAMES / 2.0f + 6, 60, LIGHTGRAY);
-        */
-
         DrawTextureV(customCursor, cursorPosition, WHITE); //draw cursor texture
         EndDrawing();
-        
+
+        if (isExitButtonPressed)
+        {
+            break;
+        }
     }
 
     UnloadTexture(button);
