@@ -1,38 +1,47 @@
-# Team C&B
+<h1 align="center">Chemistry&Biology Project</h1>
 
 <p align = "center">
-    <img src = "https://media.discordapp.net/attachments/913679081961291849/1091409241421643786/Logo.png?width=801&height=519" alt="logo" width=350px/>
+  <img src="https://user-images.githubusercontent.com/75934947/229597141-440474e1-60ad-46f7-8509-779365ac5a19.png" width="500px"/>
 </p>
 
-## ❓About
-<p>The aim of our team, composed of four students is to create Biology game using C++ as main language. Our end goal is also to implement the rules of the game as close as we can in order to help our fellow students to learn the incredible science.</p>
+<br>
 
-## 🖥️ Used technologies
-### Used languages and tools for the game development
-<p align="left">
-    <img src="https://brandslogos.com/wp-content/uploads/thumbs/c-logo-vector.svg" alt="C++" width=48px />
-    <img src="https://user-images.githubusercontent.com/85338764/167484309-c8c92f0c-8b4d-499c-93c2-71e2c5486182.png" alt="Visual Studio" width=55px />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Raylib_logo.png" alt="Raylib" width=55px height="55px"/>
-</p>
+## 📋 Description
+  
+<i>The idea of this project is to create a game or an app in C++ based on Chemistry and Biology. You can either choose one of them or you can choose to work on both of the themes. In the application, you can take a look and your encyclopedia related to the human body of some additions and of course, our skeleton of the human body. If you want to test your things that you have learned and saw, you can try with our quiz for checking your knowledge. We have created the program with a graphical interface for a more pleasant user experience.</i>
 
-### Used programmes for design and communication
-<p align="left">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma" width=31px />
-    <img src="https://www.pinclipart.com/picdir/big/401-4019240_na-ms-word-png-icon-clipart.png" alt="Word" width=53px />
-    <img src="https://www.freeiconspng.com/thumbs/ppt-icon/powerpoint-icon-microsoft-powerpoint-icon-network-powerpoint-icons-and-3.png" alt="Power Point" width=53px height=53px/>
-    <img src="https://pnggrid.com/wp-content/uploads/2021/07/Microsoft-Teams-Logo.png" alt="Teams" width=53px />
-</p>
+## 🚀 Languages 
+  <p align="left"> 
+  <a href="https://www.cplusplus.com/"><img src="https://img.icons8.com/color/48/000000/c-plus-plus-logo.png" alt="C++"/></a>
+  <a href="https://www.raylib.com/"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Raylib_logo.png" width="48" alt="Raylib"/></a>
+  </p>
 
-## 📚 PDF Documents
+## 🔧 Tools 
+  <p align="left"> 
+  <a href="https://visualstudio.microsoft.com/"><img src="https://img.icons8.com/fluency/48/000000/visual-studio.png" alt="Visual Studio 2019"/></a>
+  <a href="https://www.figma.com/"><img src="https://img.icons8.com/color/48/000000/figma--v1.png" alt="Figma"/></a>
+  <a href="https://www.canva.com/"><img src="https://img.icons8.com/fluency/48/null/canva.png" alt="Canva"/></a>
+    <a href="https://www.microsoft.com/en-ww/microsoft-365/word"><img src="https://img.icons8.com/fluency/48/000000/microsoft-word-2019.png" alt="MS Word logo" width=48px/></a>
+    <a href="https://www.microsoft.com/en-us/microsoft-365/powerpoint"><img src="https://img.icons8.com/fluency/48/000000/microsoft-powerpoint-2019.png" alt="MS PowerPoint logo" width=48px/></a>
+    <a href="https://git-scm.com/"><img src="https://img.icons8.com/color/48/000000/git.png" alt="Git"/></a>
+    <a href="https://discord.com/"><img src="https://img.icons8.com/fluency/48/null/microsoft-teams-2019.png" alt="Discord"/></a>
+  </p> 
+
+## 💼 Documents
 - [Documentation](Documents/Documentation.pdf)
 - [Presentation](Documents/Presentation.pdf)
 
-## 📥 Download
-<p> To download our game on your computer, paste the code below in CMD in order to clone it.</p>
-<pre>git clone https://github.com/INMichevska20/C-B.git</pre>
+## ⚙ Installation
 
-## 🧒 Our Team
+```
+You can download our project by using the green "Code" button.
+
+Or by pasting the following code in your CMD:
+git clone https://github.com/SERedanski20/Leviathan.git
+```
+
+## 🖥 Our Team
 * **Iliyana Michevska** - *Scrum trainer* 
 * **Rumen Petkov** - *Back-end developer* 
 * **Preslav Penchev** - *Back-end developer* 
-* **Daniel Mihalev** - *Designer* 	
+* **Daniel Mihalev** - *Designer*
