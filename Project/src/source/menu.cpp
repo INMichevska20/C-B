@@ -113,31 +113,22 @@ void menu()
 
         SetWinowsRes(screenWidth, screenHeight);          //function for changing fullscreen mode
 
-        if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[0]) && isInMenu)
+        if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[0]) && isInMenu && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
             encyclopedia = !encyclopedia;
-            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            {
-                isInMenu = !isInMenu;
-            }
+            isInMenu = !isInMenu;
         }
 
-        if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[1]) && isInMenu)
+        if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[1]) && isInMenu && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
             quiz = !quiz;
-            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            {
-                isInMenu = !isInMenu;
-            }
+            isInMenu = !isInMenu;
         }
 
-        if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[2]) && isInMenu)
+        if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[2]) && isInMenu && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
             skeleton = !skeleton;
-            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            {
-                isInMenu = !isInMenu;
-            }
+            isInMenu = !isInMenu;
         }
 
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && isMouseInSoundIconPosition())
@@ -185,19 +176,20 @@ void menu()
         {
             if (encyclopedia)
             {
-                
+                printf("%i\n", i);
                 DrawTextureV(encyclopediaPages[i], mainMenuTexturePosition, RAYWHITE);
                 if (CheckCollisionPointRec(cursorPosition, toMenuInEncyclopediaButton) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && i >= 1)
                 {
+                    i = 0;
+                    encyclopedia = !encyclopedia;
                     isInMenu = !isInMenu;
                 }
                 else if (IsKeyPressed(KEY_RIGHT))
                 {
                     i++;
-                    if (i == 9)
+                    if (i == 10)
                     {
-                        isInMenu = !isInMenu;
-                        i = 0;
+                        i--;
                     }
                 }
                 else if (IsKeyPressed(KEY_LEFT) && i >= 1)
@@ -206,6 +198,7 @@ void menu()
                 }
                 else if(IsKeyPressed(KEY_LEFT) && i == 0)
                 {
+                    encyclopedia = !encyclopedia;
                     isInMenu = !isInMenu;
                 }
             }
