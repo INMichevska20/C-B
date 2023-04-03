@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include "../include/raylib.h"
 
 #include "../headers/menu.hpp"
 #include "../headers/settings.hpp"
@@ -39,17 +38,11 @@ void menu()
     Texture2D backgroundTexture = LoadTexture("assets/background.png");         //load texture in VRAM
     Texture2D logoTexture = LoadTexture("assets/Logo.png");
 
-
-    Texture2D buttonEncyclopediaTexture = LoadTexture("assets/Menu/Buttons/EncyclopediaButton.png");           //Buttons' Texture
-    Texture2D buttonQuizTexture = LoadTexture("assets/Menu/Buttons/QuizButton.png");
-    Texture2D buttonskeletonTexture = LoadTexture("assets/Menu/Buttons/SkeletonButton.png");
-    Texture2D buttonExitTexture = LoadTexture("assets/Menu/Buttons/ExitButton.png");
-
-    Texture2D buttonТextures[4] = {                     //arranging textures in a struct
-        buttonEncyclopediaTexture,
-        buttonQuizTexture,
-        buttonskeletonTexture,
-        buttonExitTexture,
+    Texture2D buttonТextures[4] = {                     
+        LoadTexture("assets/Menu/Buttons/EncyclopediaButton.png"),
+        LoadTexture("assets/Menu/Buttons/QuizButton.png"),
+        LoadTexture("assets/Menu/Buttons/SkeletonButton.png"),              //Buttons' Texture
+        LoadTexture("assets/Menu/Buttons/ExitButton.png"),
     };
 
     Texture2D soundOnIconTexture = LoadTexture("assets/speaker.png");           //sound icon textures
@@ -70,29 +63,17 @@ void menu()
     Vector2 cursorPosition;                                         //declare cursor position Vector2 struct
     Vector2 soundIconTexturePosition = { 1500.0f, 800.0f };
 
-
-    Texture2D encyclopediaPage1 = LoadTexture("assets/Menu/Encyclopedia/Encyclopedia1.png");
-    Texture2D encyclopediaPage2 = LoadTexture("assets/Menu/Encyclopedia/Encyclopedia2.png");
-    Texture2D encyclopediaPage3 = LoadTexture("assets/Menu/Encyclopedia/Encyclopedia3.png");
-    Texture2D encyclopediaPage4 = LoadTexture("assets/Menu/Encyclopedia/Encyclopedia4.png");
-    Texture2D encyclopediaPage5 = LoadTexture("assets/Menu/Encyclopedia/Encyclopedia5.png");
-    Texture2D encyclopediaPage6 = LoadTexture("assets/Menu/Encyclopedia/Encyclopedia6.png");
-    Texture2D encyclopediaPage7 = LoadTexture("assets/Menu/Encyclopedia/Encyclopedia7.png");
-    Texture2D encyclopediaPage8 = LoadTexture("assets/Menu/Encyclopedia/Encyclopedia8.png");
-    Texture2D encyclopediaPage9 = LoadTexture("assets/Menu/Encyclopedia/Encyclopedia9.png");
-    Texture2D encyclopediaPage10 = LoadTexture("assets/Menu/Encyclopedia/Encyclopedia10.png");
-
     Texture2D encyclopediaPages[10] = {
-        encyclopediaPage1,
-        encyclopediaPage2,
-        encyclopediaPage3,
-        encyclopediaPage4,                      //arrange encyclopedia in an array
-        encyclopediaPage5,
-        encyclopediaPage6,
-        encyclopediaPage7,
-        encyclopediaPage8,
-        encyclopediaPage9,
-        encyclopediaPage10
+        LoadTexture("assets/Menu/Encyclopedia/Encyclopedia1.png"),
+        LoadTexture("assets/Menu/Encyclopedia/Encyclopedia2.png"),
+        LoadTexture("assets/Menu/Encyclopedia/Encyclopedia3.png"),
+        LoadTexture("assets/Menu/Encyclopedia/Encyclopedia4.png"),
+        LoadTexture("assets/Menu/Encyclopedia/Encyclopedia5.png"),
+        LoadTexture("assets/Menu/Encyclopedia/Encyclopedia6.png"),
+        LoadTexture("assets/Menu/Encyclopedia/Encyclopedia7.png"),
+        LoadTexture("assets/Menu/Encyclopedia/Encyclopedia8.png"),
+        LoadTexture("assets/Menu/Encyclopedia/Encyclopedia9.png"),
+        LoadTexture("assets/Menu/Encyclopedia/Encyclopedia10.png"),
     };
 
     Rectangle toMenuInEncyclopediaButton = { 1194.0f, 806.0f, 291.0f, 87.0f };
@@ -180,7 +161,6 @@ void menu()
                 DrawTextureV(encyclopediaPages[i], mainMenuTexturePosition, RAYWHITE);
                 if (CheckCollisionPointRec(cursorPosition, toMenuInEncyclopediaButton) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && i >= 1)
                 {
-                    i = 0;
                     encyclopedia = !encyclopedia;
                     isInMenu = !isInMenu;
                 }
@@ -202,14 +182,14 @@ void menu()
                     isInMenu = !isInMenu;
                 }
             }
-            /*else if (quiz)
+            else if (quiz)
             {
 
             }
             else if(skeleton)
             {
                 
-            }*/
+            }
         }
 
 
