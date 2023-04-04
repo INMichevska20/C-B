@@ -28,9 +28,9 @@
   </p> 
 
 ## 💼 Documents
-- [Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/inmichevska20_codingburgas_bg/ERnDA-Qh399JouyFbHyorIcBy89B2la0MD2_pnp-cJ2vUQ?e=1WYv4U)
-- [Documentation](https://codingburgas-my.sharepoint.com/:w:/g/personal/inmichevska20_codingburgas_bg/EaCmqI_9qI5Cr-DqUolJ7B0BOpS3C0GPrkzxxGdkOhQecA?e=3vqAJ9)
-- [QA Documentation](https://codingburgas-my.sharepoint.com/:x:/g/personal/inmichevska20_codingburgas_bg/Ef0jzej9-P5HuA2GQ7_NCWEBc4uG1mfwRGW4vQMDuzSI7w)
+- [Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/inmichevska20_codingburgas_bg/ERnDA-Qh399JouyFbHyorIcBy89B2la0MD2_pnp-cJ2vUQ?e=3lPo8x)
+- [Documentation](https://codingburgas-my.sharepoint.com/:w:/g/personal/inmichevska20_codingburgas_bg/EaCmqI_9qI5Cr-DqUolJ7B0BOpS3C0GPrkzxxGdkOhQecA?e=W6hafh)
+- [QA Documentation](https://codingburgas-my.sharepoint.com/:x:/g/personal/inmichevska20_codingburgas_bg/Ef0jzej9-P5HuA2GQ7_NCWEBc4uG1mfwRGW4vQMDuzSI7w?e=SFnlZR)
 
 ## ⚙ Installation
 
