@@ -87,13 +87,13 @@ void menu()
     Vector2 cursorPosition;
     Vector2 soundIconTexturePosition = { 1480.0f, 780.0f };
 
-    //skeleton Texture index
-    int i = 0;
+    //encyclopedia Texture index
+    int encyclopediaPageIndex = 0;
     Texture2D encyclopediaPages[10] = {
         LoadTexture("assets/Menu/Encyclopedia/Encyclopedia1.png"),
         LoadTexture("assets/Menu/Encyclopedia/Encyclopedia2.png"),
         LoadTexture("assets/Menu/Encyclopedia/Encyclopedia3.png"),
-        LoadTexture("assets/Menu/Encyclopedia/Encyclopedia4.png"),          //Skull i = 3
+        LoadTexture("assets/Menu/Encyclopedia/Encyclopedia4.png"),          //Head i = 3
         LoadTexture("assets/Menu/Encyclopedia/Encyclopedia5.png"),          //Arms i = 4
         LoadTexture("assets/Menu/Encyclopedia/Encyclopedia6.png"),          //Chest i = 5
         LoadTexture("assets/Menu/Encyclopedia/Encyclopedia7.png"),          //Hand i = 6
@@ -103,10 +103,10 @@ void menu()
     };
 
     //skeleton Texture index
-    int j = 0;
+    int skeletonPageIndex = 0;
     Texture2D skeletonTextures[9] = {
         LoadTexture("assets/Menu/Skeleton/FrontSkeleton.png"),          // 0 is Front Skeleton
-        LoadTexture("assets/Menu/Skeleton/Skull.png"),                  // 1 is Skull
+        LoadTexture("assets/Menu/Skeleton/Head.png"),                  // 1 is Head
         LoadTexture("assets/Menu/Skeleton/Chest.png"),                  // 2 is Chest
         LoadTexture("assets/Menu/Skeleton/Arm.png"),                    // 3 is Arm
         LoadTexture("assets/Menu/Skeleton/Hand.png"),                   // 4 is Hand
@@ -204,28 +204,32 @@ void menu()
         {
             if (encyclopedia)
             {
-                DrawTextureV(encyclopediaPages[i], mainMenuTexturePosition, RAYWHITE);
-                if (CheckCollisionPointRec(cursorPosition, toMenuInEncyclopediaButton) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && i >= 1)
+                DrawTextureV(encyclopediaPages[encyclopediaPageIndex], mainMenuTexturePosition, RAYWHITE);
+                if (CheckCollisionPointRec(cursorPosition, toMenuInEncyclopediaButton) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && encyclopediaPageIndex >= 1)
                 {
                     encyclopedia = !encyclopedia;
                     isInMenu = !isInMenu;
                 }
                 else if (IsKeyPressed(KEY_RIGHT))
                 {
-                    i++;
-                    if (i == 10)
+                    printf("%i\n", encyclopediaPageIndex);
+                    encyclopediaPageIndex++;
+                    if (encyclopediaPageIndex == 10)
                     {
-                        i--;
+                        encyclopediaPageIndex = 9;
                     }
                 }
-                else if (IsKeyPressed(KEY_LEFT) && i >= 1)
+                else if (IsKeyPressed(KEY_LEFT))
                 {
-                    i--;
-                }
-                else if (IsKeyPressed(KEY_LEFT) && i == 0)
-                {
-                    encyclopedia = !encyclopedia;
-                    isInMenu = !isInMenu;
+                    if (encyclopediaPageIndex >= 1)
+                    {
+                        encyclopediaPageIndex--;
+                    }
+                    else
+                    {
+                        encyclopedia = !encyclopedia;
+                        isInMenu = !isInMenu;
+                    }
                 }
             }
             else if (quiz)
@@ -283,10 +287,17 @@ void menu()
             }
             else if (skeleton)
             {
-                DrawTextureV(skeletonTextures[j], mainMenuTexturePosition, WHITE);
+                for (int i = 0; i < 9; ++i)
+                {
+                    // checks if mouse is on menu button
+                    if (skeletonPageIndex == i)
+                    {
+                        DrawTextureV(skeletonTextures[skeletonPageIndex], mainMenuTexturePosition, RAYWHITE);
+                    }
+                }
 
-                //Front Skeleton
-                if (j == 0)
+                //Front Skeleton view
+                if (skeletonPageIndex == 0)
                 {
                     // checks if mouse is on menu button
                     if (CheckCollisionPointRec(cursorPosition, Rectangle{ 0.0f, 768.0f, 309.0f, 100.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -294,61 +305,39 @@ void menu()
                         isInMenu = !isInMenu;
                         skeleton = !skeleton;
                     }
-                    //check if mouse is on skull
+                    //check if mouse is on head
                     else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 800.0f, 150.0f, 45.0f, 40.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                     {
-                        j = 1;
-
-                        //Drawing the skull page
-                        DrawTextureV(skeletonTextures[j], mainMenuTexturePosition, WHITE);
-
-                        //checks if mouse is on X button
-                        if (CheckCollisionPointRec(cursorPosition, Rectangle{ 1460.0f, 10.0f, 140.0f, 125.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-                        {
-                            skeleton = !skeleton;
-                            isInMenu = !isInMenu;
-                        }
-                        //checks if mouse is on "Click here...."
-                        else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 710.0f, 710.0f, 590.0f, 130.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-                        {
-                            skeleton = !skeleton;
-                            encyclopedia = !encyclopedia;
-                            i = 3;
-                        }
+                        skeletonPageIndex = 1;
                     }
                     //checks if mouse is on chest
                     else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 775.0f, 315.0f, 45.0f, 45.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                     {
-                        j = 2;
-                        DrawTextureV(skeletonTextures[j], mainMenuTexturePosition, WHITE);
+                        skeletonPageIndex = 2;
                     }
                     //checks if mouse is on arm
                     else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 630.0f, 335.0f, 50.0f, 40.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                     {
-                        j = 3;
-                        DrawTextureV(skeletonTextures[j], mainMenuTexturePosition, WHITE);
+                        skeletonPageIndex = 3;
                     }
                     //checks if mouse is on hand
                     else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 925.0f, 525.0f, 45.0f, 45.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                     {
-                        j = 4;
-                        DrawTextureV(skeletonTextures[j], mainMenuTexturePosition, WHITE);
+                        skeletonPageIndex = 4;
                     }
                     //checks if mouse is on leg
                     else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 810.0f, 630.0f, 50.0f, 40.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                     {
-                        j = 5;
-                        DrawTextureV(skeletonTextures[j], mainMenuTexturePosition, WHITE);
+                        skeletonPageIndex = 5;
                     }
                     //go back to Back Skeleton
                     else if (IsKeyPressed(KEY_RIGHT))
                     {
-                        j = 6;
-                        DrawTextureV(skeletonTextures[j], mainMenuTexturePosition, WHITE);
+                        skeletonPageIndex = 6;
                     }
                 }
-                //Back Skeleton
-                else if (j == 6)
+                //Back Skeleton view
+                else if (skeletonPageIndex == 6)
                 {
                     // checks if mouse is on menu button
                     if (CheckCollisionPointRec(cursorPosition, Rectangle{ 1277.0f, 768.0f, 309.0f, 100.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -356,21 +345,24 @@ void menu()
                         isInMenu = !isInMenu;
                         skeleton = !skeleton;
                     }
+                    //checks if mouse is on spine
                     else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 735.0f, 260.0f, 50.0f, 40.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                     {
-                        j = 7;
-                        DrawTextureV(skeletonTextures[j], mainMenuTexturePosition, WHITE);
+                        skeletonPageIndex = 7;
                     }
+                    //checks if mouse is on pelvis
                     else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 850.0f, 445.0f, 50.0f, 45.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                     {
-                        j = 8;
-                        DrawTextureV(skeletonTextures[j], mainMenuTexturePosition, WHITE);
+                        skeletonPageIndex = 8;
                     }
                     else if (IsKeyPressed(KEY_LEFT))
                     {
-                        j = 0;
-                        DrawTextureV(skeletonTextures[j], mainMenuTexturePosition, WHITE);
+                        skeletonPageIndex = 0;
                     }
+                }
+                else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 1340.0f, 10.0f, 245.0f, 80.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                {
+                    skeletonPageIndex = 0;
                 }
             }
         }
