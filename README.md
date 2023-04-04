@@ -28,8 +28,9 @@
   </p> 
 
 ## 💼 Documents
-- [Documentation](https://codingburgas-my.sharepoint.com/:w:/r/personal/inmichevska20_codingburgas_bg/_layouts/15/doc2.aspx?sourcedoc=%7B8FA8A6A0-A8FD-428E-AFE0-EA528949EC1D%7D&file=C%26B%20Documentation.docx&action=default&mobileredirect=true&cid=1c3dd802-fe92-4e6f-9fc6-70e258bdeb24)
 - [Presentation](https://codingburgas-my.sharepoint.com/:p:/r/personal/inmichevska20_codingburgas_bg/_layouts/15/Doc.aspx?sourcedoc=%7BE403C319-DF21-49DF-A2EC-856C7CA8AC87%7D&file=C%26B%20Presentation.pptx&action=edit&mobileredirect=true&cid=14e9b909-21c4-4ad7-9f02-bcea1d5e505b)
+- [Documentation](https://codingburgas-my.sharepoint.com/:w:/r/personal/inmichevska20_codingburgas_bg/_layouts/15/doc2.aspx?sourcedoc=%7B8FA8A6A0-A8FD-428E-AFE0-EA528949EC1D%7D&file=C%26B%20Documentation.docx&action=default&mobileredirect=true&cid=1c3dd802-fe92-4e6f-9fc6-70e258bdeb24)
+- [QA Documentation](https://codingburgas-my.sharepoint.com/:x:/r/personal/inmichevska20_codingburgas_bg/_layouts/15/Doc.aspx?sourcedoc=%7BE8CD23FD-F8FD-47FE-B80D-8643BFCD0961%7D&file=C%26B%20QA%20Documentation.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1)
 
 ## ⚙ Installation
 
