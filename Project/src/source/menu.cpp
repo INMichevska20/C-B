@@ -106,9 +106,9 @@ void menu()
     int skeletonPageIndex = 0;
     Texture2D skeletonTextures[9] = {
         LoadTexture("assets/Menu/Skeleton/FrontSkeleton.png"),          // 0 is Front Skeleton
-        LoadTexture("assets/Menu/Skeleton/Head.png"),                  // 1 is Head
-        LoadTexture("assets/Menu/Skeleton/Chest.png"),                  // 2 is Chest
-        LoadTexture("assets/Menu/Skeleton/Arm.png"),                    // 3 is Arm
+        LoadTexture("assets/Menu/Skeleton/Head.png"),                   // 1 is Head
+        LoadTexture("assets/Menu/Skeleton/Arms.png"),                   // 2 is Arms
+        LoadTexture("assets/Menu/Skeleton/Chest.png"),                  // 3 is Chest
         LoadTexture("assets/Menu/Skeleton/Hand.png"),                   // 4 is Hand
         LoadTexture("assets/Menu/Skeleton/Leg.png"),                    // 5 is Leg
         LoadTexture("assets/Menu/Skeleton/BackSkeleton.png"),           // 6 is Back Skeleton
@@ -230,6 +230,12 @@ void menu()
                         encyclopedia = !encyclopedia;
                         isInMenu = !isInMenu;
                     }
+                }
+                if (CheckCollisionPointRec(cursorPosition, Rectangle {5.0f, 15.0f, 305.0f, 90.0f}) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && encyclopediaPageIndex >= 3 && encyclopediaPageIndex <= 6)
+                {
+                    skeletonPageIndex = encyclopediaPageIndex - 2;
+                    encyclopedia = !encyclopedia;
+                    skeleton = !skeleton;
                 }
             }
             else if (quiz)
