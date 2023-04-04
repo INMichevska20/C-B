@@ -13,7 +13,7 @@ void menu()
     const int screenWidth = 1600;
     const int screenHeight = 900;
 
-
+    //menu variables
     bool hoverSoundButton = false;
     bool isInMenu = true;
     bool encyclopedia = false;
@@ -22,26 +22,45 @@ void menu()
     bool exit = false;
     bool isExitButtonPressed = false;
 
-    //quiz variables  // Define the current question and answer options
+    //quiz variables
     int currentQuestion = 0;
     int currentAnswer = -1; // -1 means no answer has been selected yet
     bool answered = false;
     bool correct = false;
-    const int numQuestions = 4;
+    int numQuestions = 10;
+
     Color beforeAnswer = { 0xEA, 0xDD, 0xCA, 0xCA };//using hex colors
     Color afterAnswer = { 0xDB, 0xCF, 0xBD, 0xBD };//using hex colors
 
-    std::string questions[] = { "What is the capital of France?", "What is the largest country in the world?",
-                         "Who invented the telephone?", "What is the chemical symbol for gold?" };
-    std::string answers[][4] = { {"Paris", "Berlin", "Madrid", "London"}, {"Russia", "China", "USA", "Canada"},
-                           {"Alexander Graham Bell", "Thomas Edison", "Nikola Tesla", "Henry Ford"}, {"Au", "Ag", "Fe", "Hg"} };
-    int correctAnswers[] = { 0, 1, 0, 0 }; // The index of the correct answer for each question
+
+    std::string questions[] = { "Approximately how many times the heart beats per day?",
+                                "How many gallons of blood the heart pumps a day?",
+                                "The brain is protected by:",
+                                "How many bones are there in the human body?",
+                                "How many bones does the axial skeleton consist of?",
+                                "Which bones does the appendicular skeleton include?",
+                                "The human skull forms:",
+                                "The composition of the hand includes:",
+                                "The chest is made up of:",
+                                "How many cervical vertebrae are there in the human body:" };
+    std::string answers[][4] = {  {"115 000", "120 000", "130 000", "110 000"},
+                                  {"about 3000", "about 2000", "about 1500", "about 1000"},
+                                  {"the sesamoid bones", "the short bones", "the skull bones", "the long bones"},
+                                  {"290", "256", "300", "206"},
+                                  {"80", "90", "70", "75"},
+                                  {"the bones of arms, legs, feet and vertebrae", "the bones of arms, legs, feet and scarum", "the bones of arms, legs, feet and hands", "the bones of arms, legs, feet and skull"},
+                                  {"arms", "legs", "the head", "chest"},
+                                  {"24", "25", "26", "27"},
+                                  {"12 pairs of ribs", "17 pairs of ribs", "14 pairs of ribs", "19 pairs of ribs"},
+                                  {"8", "7", "9", "12"} };
+    int correctAnswers[] = { 0, 1, 2, 3, 0, 1, 2, 3, 0, 1 }; // The index of the correct answer for each question
 
     //Initializing OpenGL window
     InitWindow(screenWidth, screenHeight, "Project B-C");
 
-
     Color underButtonRectangleColor = { 92, 87, 79, 200 };
+
+    //menu buttons positions
     Rectangle underButtonRectangle[4] = {
         {655.0f, 350.0f, 310.0f, 75.0f},
         {655.0f, 450.0f, 310.0f, 75.0f},
@@ -49,15 +68,25 @@ void menu()
         {655.0f, 650.0f, 310.0f, 75.0f}
     };
 
-    //menu background and logo textures
-    Texture2D backgroundTexture = LoadTexture("assets/background.png");
-    Texture2D logoTexture = LoadTexture("assets/Logo.png");
+    //quiz answer options positions
+    Rectangle underAnswerRectangle[4] = {
+        {450.0f, 364.0f, 700.0f, 38.0f},
+        {450.0f, 414.0f, 700.0f, 38.0f},
+        {450.0f, 464.0f, 700.0f, 38.0f},
+        {450.0f, 514.0f, 700.0f, 38.0f}
+    };
 
     Texture2D quizTexture = LoadTexture("assets/whiteboardQuiz.png");
     quizTexture.width = 1600;
     quizTexture.height = 900;
     Vector2 quizTexturePosition = { 0,0 };
 
+
+    //menu background and logo textures
+    Texture2D backgroundTexture = LoadTexture("assets/background.png");
+    Texture2D logoTexture = LoadTexture("assets/Logo.png");
+
+    //menu textures
     Texture2D buttonТextures[4] = {
         LoadTexture("assets/Menu/Buttons/EncyclopediaButton.png"),
         LoadTexture("assets/Menu/Buttons/QuizButton.png"),
@@ -77,8 +106,6 @@ void menu()
         {648.0f, 543.0f},
         {648.0f, 643.0f}
     };
-
-
 
     //load cursor texture
     Texture2D customCursor = LoadTexture("assets/cursor.png");
@@ -102,8 +129,8 @@ void menu()
         LoadTexture("assets/Menu/Encyclopedia/Encyclopedia10.png"),         //Legs i = 9
     };
 
-    //skeleton Texture index
-    int skeletonPageIndex = 0;
+    
+    int skeletonPageIndex = 0;// skeleton Texture index
     Texture2D skeletonTextures[9] = {
         LoadTexture("assets/Menu/Skeleton/FrontSkeleton.png"),          // 0 is Front Skeleton
         LoadTexture("assets/Menu/Skeleton/Head.png"),                   // 1 is Head
@@ -120,7 +147,6 @@ void menu()
     Rectangle toMenuInEncyclopediaButton = { 1194.0f, 806.0f, 291.0f, 87.0f };
     Rectangle encyplopediaMenuButton = { 1436.0f, 746.0f, 146.0f, 54.0f };
 
-
     //FPS locked at 240
     SetTargetFPS(240);
 
@@ -129,17 +155,15 @@ void menu()
     //main loop
     while (!WindowShouldClose())
     {
-        // Update
-        //----------------------------------------------------------------------------------
-
         //cursor position
         cursorPosition = GetMousePosition();
         cursorPosition.x -= 3;
 
 
-        //function for changing fullscreen mode
-        SetWinowsRes(screenWidth, screenHeight);
+        
+        SetWinowsRes(screenWidth, screenHeight);// function for changing fullscreen mode
 
+        //Checking if one of the menu buttons is pressed
         if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[0]) && isInMenu && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
             encyclopedia = !encyclopedia;
@@ -202,7 +226,7 @@ void menu()
         }
         else
         {
-            if (encyclopedia)
+            if (encyclopedia) //move on to encyclopedia pages if the button encyclopedia is pressed
             {
                 DrawTextureV(encyclopediaPages[encyclopediaPageIndex], mainMenuTexturePosition, RAYWHITE);
                 if (CheckCollisionPointRec(cursorPosition, toMenuInEncyclopediaButton) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && encyclopediaPageIndex >= 1)
@@ -212,7 +236,6 @@ void menu()
                 }
                 else if (IsKeyPressed(KEY_RIGHT))
                 {
-                    printf("%i\n", encyclopediaPageIndex);
                     encyclopediaPageIndex++;
                     if (encyclopediaPageIndex == 10)
                     {
@@ -238,37 +261,53 @@ void menu()
                     skeleton = !skeleton;
                 }
             }
-            else if (quiz)
+            else if (quiz) //move on to the quiz if the button quiz is pressed
             {
                 DrawTextureV(quizTexture, quizTexturePosition, WHITE);
-                DrawText(questions[currentQuestion].c_str(), 300, 190, 20, BLACK);
-                for (int i = 0; i < 4; i++) {
-                    Rectangle option = { 300, 260 + i * 50, 700, 40 };
-                    DrawRectangleRec(option, (i == currentAnswer ? afterAnswer : beforeAnswer));
-                    DrawText(answers[currentQuestion][i].c_str(), 310, 270 + i * 50, 20, BLACK);
+                DrawText(questions[currentQuestion].c_str(), 452, 310, 28, BLACK);
+
+                for (int i = 0; i < 4; i++)
+                {
+
+                    Rectangle option = { 450, 360 + i * 50, 700, 40 };
+
+                    if (CheckCollisionPointRec(cursorPosition, underAnswerRectangle[i]))//hover effect for answer options
+                    {
+                        DrawRectangleRec(option, afterAnswer);
+
+                    }
+                    else
+                    {
+                        DrawRectangleRec(option, beforeAnswer);
+                    }
+                    DrawText(answers[currentQuestion][i].c_str(), 460, 375 + i * 50, 20, BLACK);
+
                 }
 
                 // Show correct/incorrect answer feedback if answered
                 if (answered) {
 
                     if (correct) {
-                        DrawText("Correct!", 300, 500, 30, GREEN);
+                        DrawText("Correct!", 450, 565, 30, GREEN);
                     }
                     else {
-                        DrawText("Incorrect.", 300, 470, 30, RED);
-                        DrawText(("The correct answer was " + answers[currentQuestion][correctAnswers[currentQuestion]]).c_str(), 300, 505, 20, DARKGRAY);
+                        DrawText("Incorrect.", 450, 565, 30, RED);
+                        DrawText(("The correct answer was " + answers[currentQuestion][correctAnswers[currentQuestion]]).c_str(), 450, 600, 20, DARKGRAY);
                     }
                 }
 
-                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) // if the user press one of the four answer options with the left button of the mouse the answer is seledted
+                {
                     int mouseY = GetMouseY();
-                    if (mouseY >= 270 && mouseY < 295) currentAnswer = 0;
-                    else if (mouseY >= 300 && mouseY < 335) currentAnswer = 1;
-                    else if (mouseY >= 365 && mouseY < 385) currentAnswer = 2;
-                    else if (mouseY >= 400 && mouseY < 450) currentAnswer = 3;
+                    if (mouseY >= 363 && mouseY < 398) currentAnswer = 0;
+                    else if (mouseY >= 414 && mouseY < 450) currentAnswer = 1;
+                    else if (mouseY >= 462 && mouseY < 499) currentAnswer = 2;
+                    else if (mouseY >= 514 && mouseY < 550) currentAnswer = 3;
                 }
-                if (IsKeyPressed(KEY_ENTER)) {
-                    // Check if the answer is correct
+
+                if (IsKeyPressed(KEY_ENTER)) // if the user press enter the new question loads or check if the answer is true or false
+                {
+                    // check if the answer is correct
                     if (!answered) {
                         if (currentAnswer == correctAnswers[currentQuestion]) {
                             correct = true;
@@ -279,7 +318,7 @@ void menu()
                         answered = true;
                     }
                     else {
-                        // Move on to the next question
+                        // move on to the next question
                         currentQuestion++;
                         currentAnswer = -1;
                         answered = false;
@@ -291,7 +330,7 @@ void menu()
                     }
                 }
             }
-            else if (skeleton)
+            else if (skeleton) // move on to the skeleton pages if skeleton button is pressed
             {
                 for (int i = 0; i < 9; ++i)
                 {
@@ -302,7 +341,7 @@ void menu()
                     }
                 }
 
-                //Front Skeleton view
+                //front Skeleton view
                 if (skeletonPageIndex == 0)
                 {
                     // checks if mouse is on menu button
@@ -342,7 +381,7 @@ void menu()
                         skeletonPageIndex = 6;
                     }
                 }
-                //Back Skeleton view
+                //back Skeleton view
                 else if (skeletonPageIndex == 6)
                 {
                     // checks if mouse is on menu button
