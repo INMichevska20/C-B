@@ -22,6 +22,20 @@ void menu()
     bool exit = false;
     bool isExitButtonPressed = false;
 
+    //quiz variables  // Define the current question and answer options
+    int currentQuestion = 0;
+    int currentAnswer = -1; // -1 means no answer has been selected yet
+    bool answered = false;
+    bool correct = false;
+    const int numQuestions = 4;
+    Color beforeAnswer = { 0xEA, 0xDD, 0xCA, 0xCA };//using hex colors
+    Color afterAnswer = { 0xDB, 0xCF, 0xBD, 0xBD };//using hex colors
+
+    std::string questions[] = { "What is the capital of France?", "What is the largest country in the world?",
+                         "Who invented the telephone?", "What is the chemical symbol for gold?" };
+    std::string answers[][4] = { {"Paris", "Berlin", "Madrid", "London"}, {"Russia", "China", "USA", "Canada"},
+                           {"Alexander Graham Bell", "Thomas Edison", "Nikola Tesla", "Henry Ford"}, {"Au", "Ag", "Fe", "Hg"} };
+    int correctAnswers[] = { 0, 1, 0, 0 }; // The index of the correct answer for each question
 
     InitWindow(screenWidth, screenHeight, "Project B-C");       //Initializing OpenGL window
 
@@ -36,6 +50,11 @@ void menu()
 
     Texture2D backgroundTexture = LoadTexture("assets/background.png");         //load texture in VRAM
     Texture2D logoTexture = LoadTexture("assets/Logo.png");
+
+    Texture2D quizTexture = LoadTexture("assets/whiteboardQuiz.png");
+    quizTexture.width = 1600;
+    quizTexture.height = 900;
+    Vector2 quizTexturePosition = { 0,0 };
 
     Texture2D buttonТextures[4] = {                     
         LoadTexture("assets/Menu/Buttons/EncyclopediaButton.png"),
@@ -117,6 +136,7 @@ void menu()
         {
             quiz = !quiz;
             isInMenu = !isInMenu;
+            currentQuestion = 0;
         }
 
         if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[2]) && isInMenu && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -196,7 +216,56 @@ void menu()
             }
             else if (quiz)
             {
+                DrawTextureV(quizTexture, quizTexturePosition, WHITE);
+                DrawText(questions[currentQuestion].c_str(), 300, 190, 20, BLACK);
+                for (int i = 0; i < 4; i++) {
+                    Rectangle option = { 300, 260 + i * 50, 700, 40 };
+                    DrawRectangleRec(option, (i == currentAnswer ? afterAnswer : beforeAnswer));
+                    DrawText(answers[currentQuestion][i].c_str(), 310, 270 + i * 50, 20, BLACK);
+                }
 
+                // Show correct/incorrect answer feedback if answered
+                if (answered) {
+
+                    if (correct) {
+                        DrawText("Correct!", 300, 500, 30, GREEN);
+                    }
+                    else {
+                        DrawText("Incorrect.", 300, 470, 30, RED);
+                        DrawText(("The correct answer was " + answers[currentQuestion][correctAnswers[currentQuestion]]).c_str(), 300, 505, 20, DARKGRAY);
+                    }
+                }
+
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                    int mouseY = GetMouseY();
+                    if (mouseY >= 270 && mouseY < 295) currentAnswer = 0;
+                    else if (mouseY >= 300 && mouseY < 335) currentAnswer = 1;
+                    else if (mouseY >= 365 && mouseY < 385) currentAnswer = 2;
+                    else if (mouseY >= 400 && mouseY < 450) currentAnswer = 3;
+                }
+                if (IsKeyPressed(KEY_ENTER)) {
+                    // Check if the answer is correct
+                    if (!answered) {
+                        if (currentAnswer == correctAnswers[currentQuestion]) {
+                            correct = true;
+                        }
+                        else {
+                            correct = false;
+                        }
+                        answered = true;
+                    }
+                    else {
+                        // Move on to the next question
+                        currentQuestion++;
+                        currentAnswer = -1;
+                        answered = false;
+                        if (currentQuestion >= numQuestions)
+                        {
+                            isInMenu = !isInMenu;
+                            quiz = !quiz;
+                        }
+                    }
+                }
             }
             else if(skeleton)
             {
