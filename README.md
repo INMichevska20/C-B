@@ -1,7 +1,7 @@
-<h1 align="center">Chemistry&Biology Project</h1>
+<h1 align="center">Chemistry & Biology Project</h1>
 
 <p align = "center">
-  <img src="https://user-images.githubusercontent.com/75934947/229597141-440474e1-60ad-46f7-8509-779365ac5a19.png" width="500px"/>
+  <img src="https://user-images.githubusercontent.com/75934947/229597141-440474e1-60ad-46f7-8509-779365ac5a19.png" width="450px"/>
 </p>
 
 <br>
@@ -37,7 +37,7 @@
 You can download our project by using the green "Code" button.
 
 Or by pasting the following code in your CMD:
-git clone https://github.com/SERedanski20/Leviathan.git
+git clone https://github.com/INMichevska20/C-B.git
 ```
 
 ## 🖥 Our Team
