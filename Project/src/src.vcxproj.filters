@@ -21,9 +21,6 @@
     <ClCompile Include="source\menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\quiz.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

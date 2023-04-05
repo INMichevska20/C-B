@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\menu.cpp" />
-    <ClCompile Include="source\quiz.cpp" />
     <ClCompile Include="source\settings.cpp" />
   </ItemGroup>
   <ItemGroup>
