@@ -2,10 +2,7 @@
 #include "../headers/menu.hpp"
 #include "../headers/settings.hpp"
 
-bool isMouseInSoundIconPosition()
-{
-    return (GetMouseX() >= 1480 && GetMouseX() <= 1580 && GetMouseY() >= 780 && GetMouseY() <= 880);
-}
+
 
 void menu()
 {
@@ -129,12 +126,12 @@ void menu()
         LoadTexture("assets/Menu/Encyclopedia/Encyclopedia10.png"),         //Legs i = 9
     };
 
-    
-    int skeletonPageIndex = 0;// skeleton Texture index
+    // skeleton Texture index
+    int skeletonPageIndex = 0;
     Texture2D skeletonTextures[9] = {
         LoadTexture("assets/Menu/Skeleton/FrontSkeleton.png"),          // 0 is Front Skeleton
         LoadTexture("assets/Menu/Skeleton/Head.png"),                   // 1 is Head
-        LoadTexture("assets/Menu/Skeleton/Arms.png"),                   // 2 is Arms
+        LoadTexture("assets/Menu/Skeleton/Arm.png"),                    // 2 is Arms
         LoadTexture("assets/Menu/Skeleton/Chest.png"),                  // 3 is Chest
         LoadTexture("assets/Menu/Skeleton/Hand.png"),                   // 4 is Hand
         LoadTexture("assets/Menu/Skeleton/Leg.png"),                    // 5 is Leg
@@ -160,8 +157,8 @@ void menu()
         cursorPosition.x -= 3;
 
 
-        
-        SetWinowsRes(screenWidth, screenHeight);// function for changing fullscreen mode
+        // function for changing fullscreen mode
+        SetWinowsRes(screenWidth, screenHeight);
 
         //Checking if one of the menu buttons is pressed
         if (CheckCollisionPointRec(cursorPosition, underButtonRectangle[0]) && isInMenu && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -226,7 +223,8 @@ void menu()
         }
         else
         {
-            if (encyclopedia) //move on to encyclopedia pages if the button encyclopedia is pressed
+            //move on to encyclopedia pages if the button encyclopedia is pressed
+            if (encyclopedia) 
             {
                 DrawTextureV(encyclopediaPages[encyclopediaPageIndex], mainMenuTexturePosition, RAYWHITE);
                 if (CheckCollisionPointRec(cursorPosition, toMenuInEncyclopediaButton) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && encyclopediaPageIndex >= 1)
@@ -254,12 +252,25 @@ void menu()
                         isInMenu = !isInMenu;
                     }
                 }
-                if (CheckCollisionPointRec(cursorPosition, Rectangle {5.0f, 15.0f, 305.0f, 90.0f}) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && encyclopediaPageIndex >= 3 && encyclopediaPageIndex <= 6)
+                if (CheckCollisionPointRec(cursorPosition, Rectangle {5.0f, 15.0f, 305.0f, 90.0f}) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                 {
-                    skeletonPageIndex = encyclopediaPageIndex - 2;
                     encyclopedia = !encyclopedia;
                     skeleton = !skeleton;
+                    if (encyclopediaPageIndex >= 3 && encyclopediaPageIndex <= 6)
+                    {
+                        skeletonPageIndex = encyclopediaPageIndex - 2;
+                    }
+                    else if (encyclopediaPageIndex == 7 || encyclopediaPageIndex == 8)
+                    {
+                        skeletonPageIndex = encyclopediaPageIndex;
+                    }
+                    else if (encyclopediaPageIndex == 9)
+                    {
+                        skeletonPageIndex = encyclopediaPageIndex - 4;
+                    }
+                    
                 }
+                
             }
             else if (quiz) //move on to the quiz if the button quiz is pressed
             {
@@ -330,7 +341,8 @@ void menu()
                     }
                 }
             }
-            else if (skeleton) // move on to the skeleton pages if skeleton button is pressed
+            // move on to the skeleton pages if skeleton button is pressed
+            else if (skeleton) 
             {
                 for (int i = 0; i < 9; ++i)
                 {
@@ -355,13 +367,13 @@ void menu()
                     {
                         skeletonPageIndex = 1;
                     }
-                    //checks if mouse is on chest
-                    else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 775.0f, 315.0f, 45.0f, 45.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                    //checks if mouse is on arm 
+                    else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 630.0f, 335.0f,  45.0f, 45.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                     {
                         skeletonPageIndex = 2;
                     }
-                    //checks if mouse is on arm
-                    else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 630.0f, 335.0f, 50.0f, 40.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                    //checks if mouse is on chest
+                    else if (CheckCollisionPointRec(cursorPosition, Rectangle{ 775.0f, 315.0f, 50.0f, 40.0f }) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                     {
                         skeletonPageIndex = 3;
                     }

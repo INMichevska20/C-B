@@ -1,6 +1,11 @@
 #include "raylib.h"
 #include "../headers/settings.hpp"
 
+bool isMouseInSoundIconPosition()
+{
+    return (GetMouseX() >= 1480 && GetMouseX() <= 1580 && GetMouseY() >= 780 && GetMouseY() <= 880);
+}
+
 void SetWinowsRes(const int& screenWidth, const int& screenHeight)
 {
     // check for alt + enter
