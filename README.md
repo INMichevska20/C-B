@@ -6,6 +6,13 @@
 
 <br>
 
+<p align = "center">
+    <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/INMichevska20/C-B?style=flat-square">
+    <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/INMichevska20/C-B?style=flat-square">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/INMichevska20/C-B?style=flat-square">
+    <img src="https://img.shields.io/github/languages/count/INMichevska20/C-B?style=flat-square">
+</p>
+
 ## 📋 Description
   
 <i>The idea of this project is to create a game or an app in C++ based on Chemistry and Biology. You can either choose one of them or you can choose to work on both of the themes. In the application, you can take a look and your encyclopedia related to the human body of some additions and of course, our skeleton of the human body. If you want to test your things that you have learned and saw, you can try with our quiz for checking your knowledge. We have created the program with a graphical interface for a more pleasant user experience.</i>
